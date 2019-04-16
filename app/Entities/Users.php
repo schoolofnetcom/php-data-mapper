@@ -6,5 +6,4 @@ use ErikFig\DataMapperOrm\Entities\Entity;
 
 class Users extends Entity
 {
-
 }

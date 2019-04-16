@@ -14,13 +14,8 @@ $conn->connect([
     'user' => 'root'
 ]);
 
-$user = new Users([
-    'name' => 'João',
-    'email' => 'j@jasd.com',
-    'password' => '654321'
-]);
-
 $repository = new Repository($conn);
 $repository->setEntity(Users::class);
-$users = $repository->all();
-var_dump($users);
+$user = $repository->first(4);
+$user = $repository->delete($user);
+var_dump($user);

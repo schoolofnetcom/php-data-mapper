@@ -35,4 +35,33 @@ class Entity implements EntityInterface
         
         return strtolower($table);
     }
+
+    public function __get($name)
+    {
+        $method = $this->methodName('get', $name);
+
+        if (method_exists($this, $method)) {
+            return $this->$method();
+        }
+        return $this->data[$name];
+    }
+
+    public function __set($name, $value)
+    {
+        $method = $this->methodName('set', $name);
+
+        if (method_exists($this, $method)) {
+            return $this->$method($value);
+        }
+        return $this->data[$name];
+    }
+
+    private function methodName($prefix, $name)
+    {
+        $method = str_replace('_', ' ', $name);
+        $method = ucwords($method);
+        $method = str_replace(' ', '', $method);
+
+        return $prefix . $method;
+    }
 }

@@ -6,8 +6,6 @@ use ErikFig\DataMapperOrm\QueryBuilder\Filters\Where;
 
 class Insert implements QueryBuilderInterface
 {
-    use Where;
-
     private $query;
     protected $values = [];
 
