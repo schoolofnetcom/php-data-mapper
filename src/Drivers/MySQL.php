@@ -53,7 +53,7 @@ class MySQL implements DriverInterface
 
     public function lastInsertedId()
     {
-        return $this->pdo->lastInsertedId();
+        return $this->pdo->lastInsertId();
     }
 
     public function first()

@@ -5,6 +5,9 @@ namespace ErikFig\DataMapperOrm\Repositories;
 use ErikFig\DataMapperOrm\Drivers\DriverInterface;
 use ErikFig\DataMapperOrm\Entities\EntityInterface;
 use ErikFig\DataMapperOrm\QueryBuilder\Select;
+use ErikFig\DataMapperOrm\QueryBuilder\Insert;
+use ErikFig\DataMapperOrm\QueryBuilder\Delete;
+use ErikFig\DataMapperOrm\QueryBuilder\Update;
 use ErikFig\DataMapperOrm\Entities\Entity;
 
 class Repository
@@ -41,7 +44,11 @@ class Repository
 
     public function insert(EntityInterface $entity): EntityInterface
     {
-        // 
+        $table = $entity->getTable();
+        $this->driver->setQueryBuilder(new Insert($table, $entity->getAll()));
+        $this->driver->execute();
+        
+        return $this->first($this->driver->lastInsertedId());
     }
 
     public function update(EntityInterface $entity): EntityInterface
@@ -85,7 +92,7 @@ class Repository
         
         $entities = [];
         foreach ($data as $row) {
-            $entities[] = $entity->setAll($row);
+            $entities[] = new $this->entity($row);
         }
 
         return $entities;
