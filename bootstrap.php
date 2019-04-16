@@ -2,9 +2,11 @@
 
 require __DIR__  .'/vendor/autoload.php';
 
-$select = new ErikFig\DataMapperOrm\QueryBuilder\Select('users');
+use ErikFig\DataMapperOrm\Drivers\Mysql;
+use ErikFig\DataMapperOrm\Repositories\Repository;
+use App\Entities\Users;
 
-$conn = new ErikFig\DataMapperOrm\Drivers\Mysql;
+$conn = new Mysql;
 
 $conn->connect([
     'server' => 'localhost',
@@ -12,8 +14,7 @@ $conn->connect([
     'user' => 'root'
 ]);
 
-$conn->setQueryBuilder($select);
-$conn->execute();
-$users = $conn->all();
-
-var_dump($users[0]['name']);
+$repository = new Repository($conn);
+$repository->setEntity(Users::class);
+$users = $repository->first(1);
+var_dump($users);

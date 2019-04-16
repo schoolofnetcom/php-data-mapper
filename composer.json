@@ -12,7 +12,8 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "ErikFig\\DataMapperOrm\\": "src"
+            "ErikFig\\DataMapperOrm\\": "src",
+            "App\\": "app"
         }
     }
 }

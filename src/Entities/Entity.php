@@ -9,12 +9,13 @@ class Entity implements EntityInterface
 
     public function __construct(array $data = [])
     {
-
+        $this->data = $data;
     }
 
     public function setAll(array $data)
     {
         $this->data = $data;
+        return $this;
     }
 
     public function getAll(): array
@@ -24,6 +25,14 @@ class Entity implements EntityInterface
 
     public function getTable(): string
     {
-        return 'users';
+        if (!empty($this->table)) {
+            return $this->table;
+        }
+
+        $table = get_class($this); // App\Entities\Users
+        $table = explode('\\', $table); // [ 'App', 'Entities','Users' ]
+        $table = array_pop($table); // Users
+        
+        return strtolower($table);
     }
 }
