@@ -2,11 +2,11 @@
 
 require __DIR__  .'/vendor/autoload.php';
 
-use ErikFig\DataMapperOrm\Drivers\Mysql;
+use ErikFig\DataMapperOrm\Drivers\Mysql as Driver;
 use ErikFig\DataMapperOrm\Repositories\Repository;
 use App\Entities\Users;
 
-$conn = new Mysql;
+$conn = new Driver;
 
 $conn->connect([
     'server' => 'localhost',
@@ -16,6 +16,9 @@ $conn->connect([
 
 $repository = new Repository($conn);
 $repository->setEntity(Users::class);
-$user = $repository->first(4);
-$user = $repository->delete($user);
+
+$user = $repository->first(1);
+$user->name = 'Erik Figueiredo';
+
+$user = $repository->update($user);
 var_dump($user);

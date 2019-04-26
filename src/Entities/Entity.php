@@ -53,7 +53,7 @@ class Entity implements EntityInterface
         if (method_exists($this, $method)) {
             return $this->$method($value);
         }
-        return $this->data[$name];
+        $this->data[$name] = $value;
     }
 
     private function methodName($prefix, $name)

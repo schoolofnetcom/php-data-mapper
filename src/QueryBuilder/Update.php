@@ -24,11 +24,11 @@ class Update implements QueryBuilderInterface
         $columns = array_keys($data);
 
         $columns_query = [];
-        foreach ($colums as $column) {
+        foreach ($columns as $column) {
             $columns_query[] = $column . '=?';
         }
 
-        $sql . ' SET ' . implode(', ', $columns_query);
+        $sql .= ' SET ' . implode(', ', $columns_query);
         $sql .= $this->makeWhere($conditions);
 
         return $sql;
